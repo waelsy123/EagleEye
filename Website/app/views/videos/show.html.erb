@@ -1,0 +1,13 @@
+<!--<p>
+  <strong>Author:</strong>
+  <%#= video.author.username %>
+</p>-->
+<% for attribute in @video_attributes.keys %>
+  <p>
+    <strong><%= attribute.humanize + ':' %></strong>
+    <%= @video.attributes[attribute] %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_video_path(@video) %> |
+<%= link_to 'Back', videos_path %>

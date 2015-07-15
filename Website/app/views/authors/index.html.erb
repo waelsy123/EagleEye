@@ -1,0 +1,42 @@
+<h1>Listing Authors</h1>
+
+<%= search_form_for @search, url: search_authors_path, method: :post do |f| %>
+  <%= f.condition_fields do |c| %>
+    <%= render "condition_fields", f: c %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+  <div class="field">
+    Sort:
+    <%= f.sort_fields do |s| %>
+      <%= s.sort_select %>
+    <% end %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<table id="authors">
+  <tr>
+    <% for attribute in all_attributes %>
+      <th>
+        <%= sort_link @search, attribute.to_sym, attribute.humanize %>
+      </th>
+    <% end %>
+  </tr>
+  <% @authors.each do |author| %>
+    <tr>
+      <% for attribute in all_attributes %>
+        <td>
+          <%= author.attributes[attribute] %>
+        </td>
+      <% end %>
+      <td><%= link_to 'Show', author %></td>
+      <td><%= link_to 'Edit', edit_author_path(author) %></td>
+      <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New Author', new_author_path %> |
+<%= link_to 'Back', root_path %>

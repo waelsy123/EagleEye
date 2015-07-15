@@ -1,0 +1,42 @@
+<h1>Listing Videos</h1>
+
+<%= search_form_for @search, url: search_videos_path, method: :post do |f| %>
+  <%= f.condition_fields do |c| %>
+    <%= render "condition_fields", f: c %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Conditions", f, :condition %></p>
+  <div class="field">
+    Sort:
+    <%= f.sort_fields do |s| %>
+      <%= s.sort_select %>
+    <% end %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<table id="videos">
+  <tr>
+    <% for attribute in all_attributes %>
+      <th>
+        <%= sort_link @search, attribute.to_sym, attribute.humanize %>
+      </th>
+    <% end %>
+  </tr>
+  <% @videos.each do |video| %>
+    <tr>
+      <% for attribute in all_attributes %>
+        <td>
+          <%= video.attributes[attribute] %>
+        </td>
+      <% end %>
+      <td><%= link_to 'Show', video %></td>
+      <td><%= link_to 'Edit', edit_video_path(video) %></td>
+      <td><%= link_to 'Destroy', video, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New Video', new_video_path %> |
+<%= link_to 'Back', root_path %>

@@ -1,0 +1,9 @@
+<% for attribute in @author_attributes.keys %>
+  <p>
+    <strong><%= attribute.humanize + ':' %></strong>
+    <%= @author.attributes[attribute] %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_author_path(@author) %> |
+<%= link_to 'Back', authors_path %>

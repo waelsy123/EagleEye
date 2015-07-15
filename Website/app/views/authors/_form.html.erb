@@ -1,0 +1,31 @@
+<%= form_for(@author) do |f| %>
+  <% if @author.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@author.errors.count, "error") %> prohibited this author from being saved:</h2>
+
+      <ul>
+      <% @author.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username %>
+  </div>
+  <% for attribute in @author_attributes.except('username').keys %>
+    <div class="field">
+      <%= f.label attribute %><br>
+      <%= f.text_field attribute %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :custom_attribute %><br>
+    <%= f.text_field :custom_tag, :placeholder => "Custom attribute name", :value => nil %>
+    <%= f.text_field :custom_value, :placeholder => "Custom attribute value", :value => nil %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
